@@ -23,6 +23,7 @@ jobs:
           sudo apt install aria2
           BUILD_TIME=$(TZ=Asia/Shanghai date +"%m%d%H%M")
           echo "BUILD_TIME=$BUILD_TIME" >> $GITHUB_ENV
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已被创建: "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}"}]]}}}}' ${{ secrets.FEISHU }}
 
       - name: 提取镜像
         run: |
