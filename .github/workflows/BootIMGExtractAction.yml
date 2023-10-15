@@ -41,7 +41,7 @@ jobs:
           echo "提交日期：$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> info.md
           echo "ROM 下载直链：${{ github.event.inputs.rom_url }}" >> info.md
           echo "本次提取时长为 $execution_time 秒" >> info.md
-          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已完成: "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}"},{"tag": "a", "text": "点我跳转下载链接", "href": "https://github.com/tosasitill/FeishuBOOT/releases/"}]]}}}}' ${{ secrets.FEISHU }}
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已完成: "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}                             |                 "},{"tag": "a", "text": "点我跳转下载链接", "href": "https://github.com/tosasitill/FeishuBOOT/releases/"}]]}}}}' ${{ secrets.FEISHU }}
 
       - name: 上传镜像及相关信息
         uses: ncipollo/release-action@v1.12.0
