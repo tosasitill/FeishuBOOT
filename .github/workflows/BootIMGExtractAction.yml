@@ -23,7 +23,7 @@ jobs:
           sudo apt install aria2
           BUILD_TIME=$(TZ=Asia/Shanghai date +"%m%d%H%M")
           echo "BUILD_TIME=$BUILD_TIME" >> $GITHUB_ENV
-          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已被创建: "}, {"tag": "text", "text": "新提取任务唯一GITHUB WORKFLOWS编号为:${{ github.run_id }} "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}"}]]}}}}' ${{ secrets.FEISHU }}
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已被创建: "}, {"tag": "text", "text": "新提取任务唯一GITHUB WORKFLOWS编号为:${{ github.run_id }}             "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}"}]]}}}}' ${{ secrets.FEISHU }}
           
 
       - name: 提取镜像
@@ -34,7 +34,7 @@ jobs:
           wget https://github.com/ssut/payload-dumper-go/releases/download/1.2.2/payload-dumper-go_1.2.2_linux_amd64.tar.gz
           tar -zxvf payload-dumper-go_1.2.2_linux_amd64.tar.gz
           aria2c -s 10 -x 10 -d . -o firmware.zip "${{ github.event.inputs.rom_url }}"
-          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "任务GITHUB WORKFLOWS编号为:${{ github.run_id }}"}, {"tag": "text", "text": "ROM 本体已下载完成!开始提取镜像!"}]]}}}}' ${{ secrets.FEISHU }}
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "任务GITHUB WORKFLOWS编号为:${{ github.run_id }}         "}, {"tag": "text", "text": "ROM 本体已下载完成!开始提取镜像!"}]]}}}}' ${{ secrets.FEISHU }}
           chmod +x payload-dumper-go
           ./payload-dumper-go -p boot,init_boot -o ~/1 firmware.zip
           cd ${{ github.workspace }}
@@ -44,7 +44,7 @@ jobs:
           echo "提交日期：$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> info.md
           echo "ROM 下载直链：${{ github.event.inputs.rom_url }}" >> info.md
           echo "本次提取时长为 $execution_time 秒" >> info.md
-          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已完成: "}, {"tag": "text", "text": "任务GITHUB WORKFLOWS编号为:${{ github.run_id }}"}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}                             |                 "},{"tag": "a", "text": "点我跳转下载链接", "href": "https://github.com/tosasitill/FeishuBOOT/releases/"}]]}}}}' ${{ secrets.FEISHU }}
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "新提取任务已完成: "}, {"tag": "text", "text": "任务GITHUB WORKFLOWS编号为:${{ github.run_id }}               "}, {"tag": "text", "text": "ROM 下载直链：${{ github.event.inputs.rom_url }}                             |                 "},{"tag": "a", "text": "点我跳转下载链接", "href": "https://github.com/tosasitill/FeishuBOOT/releases/"}]]}}}}' ${{ secrets.FEISHU }}
 
       - name: 上传镜像及相关信息
         uses: ncipollo/release-action@v1.12.0
