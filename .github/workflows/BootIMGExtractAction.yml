@@ -40,6 +40,7 @@ jobs:
           cd ~
           git clone https://github.com/ColdWindScholar/Magisk_Patch_Python.git
           cd Magisk_Patch_Python
+          chmod -R bin/Linux/x86_64/magiskboot
           python patch.py ~/1/boot.img
           mv Magisk_Patch_Python/new-boot.img ~/1/
           mv ~/1/new-boot.img magisk-boot.img
