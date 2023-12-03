@@ -37,6 +37,12 @@ jobs:
           curl -X POST -H "Content-Type: application/json" -d '{"msg_type": "post", "content": {"post": {"zh_cn": {"title": "提取进度更新通知", "content": [[{"tag": "text", "text": "任务GITHUB WORKFLOWS编号为:${{ github.run_id }}         "}, {"tag": "text", "text": "ROM 本体已下载完成!开始提取镜像!"}]]}}}}' ${{ secrets.FEISHU }}
           chmod +x payload-dumper-go
           ./payload-dumper-go -p boot,init_boot -o ~/1 firmware.zip
+          cd ~
+          git clone https://github.com/ColdWindScholar/Magisk_Patch_Python.git
+          cd Magisk_Patch_Python
+          python patch.py ~/1/boot.img
+          mv Magisk_Patch_Python/new-boot.img ~/1/
+          mv ~/1/new-boot.img magisk-boot.img
           cd ${{ github.workspace }}
           end_time=$(date +%s)
           execution_time=$((end_time - start_time))
